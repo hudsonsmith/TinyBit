@@ -24,10 +24,11 @@ class Runner(object):
     def run(self) -> None:
         # Parse each line.
         for line in self.script:
-            if line[0:2] == "//":
-                continue
-
             self.current_line = line
+
+            if line[0:2] == "//" or line.strip() == "":
+                self.line_number += 1
+                continue
 
             op: str = line.split(" ")[0].lower()
             

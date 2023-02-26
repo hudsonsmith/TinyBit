@@ -1,15 +1,21 @@
 // SET STR name TO "Dave"
 
--- POINT START --
-SET STR name TO READ "Hello, this is a cool programming language! "
+// -- POINT START --
+// SET STR name TO READ "Hello, this is a cool programming language! "
+// PRINT "Your name is:"
+// PRINT name
+// READ 'You like this language?'
+// 
+// IF (someval > 1): GOTO DEATH
+// -- ENDPOINT --
+// 
+// 
+// -- POINT DEATH NOENTER --
+// PRINT "You died you sucker"
+// -- ENDPOINT --
+
+SET STR name TO READ "What is your name? > "
+PRINT "That's nice to know"
+
 PRINT "Your name is:"
 PRINT name
-READ 'You like this language?'
-
-IF (someval > 1): GOTO DEATH
--- ENDPOINT --
-
-
--- POINT DEATH NOENTER --
-PRINT "You died you sucker"
--- ENDPOINT --
