@@ -1,1 +1,2 @@
-SET abc INT TO 123
+SET abc INT TO 12 
+PRINT 'Hello World from TinyBit!'
