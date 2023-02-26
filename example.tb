@@ -1,2 +1,5 @@
-SET STR name TO "Dave"
+// SET STR name TO "Dave"
+SET STR name TO READ "Hello, this is a cool programming language! "
+PRINT "Your name is:"
 PRINT name
+READ 'You like this language?'

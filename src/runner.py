@@ -17,12 +17,16 @@ class Runner(object):
 
         self.operations: dict = {
             "set": self.set,
-            "print": self.print
+            "print": self.print,
+            "read": self.read
         }
     
     def run(self) -> None:
         # Parse each line.
         for line in self.script:
+            if line[0:2] == "//":
+                continue
+
             self.current_line = line
 
             op: str = line.split(" ")[0].lower()
@@ -32,6 +36,7 @@ class Runner(object):
             
             else:
                 self.error(f"Undefined operation, {op.upper()}")
+                exit()
 
             self.line_number += 1
     
@@ -55,14 +60,29 @@ class Runner(object):
         var_type: str = parsed[1]
         value = parsed[4]
 
+
+
+
         try:
-            var = self.types[var_type](value)
-            
-            if type(var) == str:
-                var: str = var[1:-1]
+            op: str = value.split(" ")
+
+            # If it's an op
+            if op[0].lower() in list(self.operations.keys()):
+                args: str = f"{op[0].lower()}"
+
+                for val in op[1:]:
+                    args += f" {val}"
+
+                var = self.operations[op[0].lower()](args)
+
+
+            else:
+                var = self.types[var_type](value)
+                
+                if type(var) == str:
+                    var: str = var[1:-1]
             
             self.memory[var_name] = var
-
             
         
         except:
@@ -81,6 +101,13 @@ class Runner(object):
         else:
             print(self.memory[content])
 
-        
-    
 
+    def read(self, line: str) -> str:
+        text: str = line.split(" ", 1)[1]
+
+        if "\"" == text[0] and "\"" == text[-1] or "\'" == text[0] and "\'" == text[-1]:
+            answer: str = input(f"{text[1:-1]}")
+            return answer
+        
+        else:
+            self.error("Only accepts STR inputs")
