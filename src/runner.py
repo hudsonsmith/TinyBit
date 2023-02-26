@@ -42,18 +42,28 @@ class Runner(object):
     
     def set(self, line: str) -> None:
         # Get it into chunks.
-        parsed: list = line.split(" ")
+        parsed: list = line.split(" ", 4)
+
+        if len(parsed) > 5:
+            self.error("Invalid syntax, to many arguments!")
 
         # Clean it.
-        for i, val in enumerate(parsed):
+        for i, val in enumerate(parsed[0:-2]):
             parsed[i] = val.lower().strip()
 
-        var_name: str = parsed[1]
-        var_type: str = parsed[2]
+        var_name: str = parsed[2]
+        var_type: str = parsed[1]
         value = parsed[4]
 
         try:
-            self.memory[var_name] = self.types[var_type](value)
+            var = self.types[var_type](value)
+            
+            if type(var) == str:
+                var: str = var[1:-1]
+            
+            self.memory[var_name] = var
+
+            
         
         except:
             self.error(f"Incompatible types for {var_type} and {value}")
@@ -67,6 +77,9 @@ class Runner(object):
         # Check if the start and the ending of the content is a string.
         if "\"" == content[0] and "\"" == content[-1] or "\'" == content[0] and "\'" == content[-1]:
             print(content[1:-1])
+        
+        else:
+            print(self.memory[content])
 
         
     

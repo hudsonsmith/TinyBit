@@ -1,2 +1,2 @@
-SET abc INT TO 12 
-PRINT 'Hello World from TinyBit!'
+SET STR name TO "Dave"
+PRINT name
