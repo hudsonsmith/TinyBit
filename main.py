@@ -1,15 +1,15 @@
-from sys import argv
-from src.runner import Runner
+import basic
+from src.colors import Colors
 
+c: Colors = Colors()
 
-filename: str = argv[-1]
+while True:
+    text: str = input(f"{c.red}~{c.yellow}~{c.green}>{c.reset} ")
+    result, error = basic.run("stdin", text)
 
-with open(filename, "r", encoding="utf-8") as f:
-    script: str = f.read()
-
-
-lines: list = script.split("\n")
-
-
-runner: Runner = Runner(lines, filename)
-runner.run()
+    if error:
+        print(error)
+    
+    else:
+        print(result)
+        # print(result.left_node)
